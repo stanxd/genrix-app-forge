@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Progress } from '@/components/ui/progress';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface PromptUsageProps {
   used: number;
@@ -13,31 +12,21 @@ const PromptUsage: React.FC<PromptUsageProps> = ({ used, total, isPremium = fals
   const percentUsed = Math.min((used / total) * 100, 100);
   
   return (
-    <Card className="bg-black/20 border-white/10 backdrop-blur-sm text-white">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-sm font-medium">Prompt Usage</CardTitle>
-        <CardDescription className="text-xs text-white/60">
-          {isPremium ? 'Premium Plan' : 'Free Plan'}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs">
-            <span>{used} used</span>
-            <span>{total} total</span>
-          </div>
-          <Progress 
-            value={percentUsed} 
-            className={`h-2 bg-white/10 ${isPremium ? "[&>div]:bg-genrix-purple" : "[&>div]:bg-white/50"}`} 
-          />
-          <div className="text-xs text-white/60 pt-1">
-            {isPremium 
-              ? 'You have premium access (100 prompts / 30 days)' 
-              : 'Upgrade to premium for more prompts ($20/month)'}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="w-full bg-black/20 rounded-md p-2">
+      <div className="flex justify-between items-center text-xs mb-1">
+        <span className="text-white/80 font-medium flex items-center">
+          <span className={`w-2 h-2 rounded-full ${isPremium ? 'bg-genrix-purple' : 'bg-white/70'} mr-1.5`}></span>
+          {isPremium ? 'Premium' : 'Free'} Plan
+        </span>
+        <span className="text-white/60">
+          <span className="font-medium text-white">{used}</span> / {total} prompts
+        </span>
+      </div>
+      <Progress 
+        value={percentUsed} 
+        className={`h-1.5 bg-white/10 ${isPremium ? "[&>div]:bg-genrix-purple" : "[&>div]:bg-white/50"}`} 
+      />
+    </div>
   );
 };
 

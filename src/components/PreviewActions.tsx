@@ -15,32 +15,32 @@ interface ActionButtonProps {
 
 const ActionButton = ({ icon, label, planType, onClick }: ActionButtonProps) => {
   return (
-    <div className="flex flex-col items-center">
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            onClick={onClick}
-            variant="outline"
-            size="lg"
-            className={`h-14 w-14 rounded-lg border-white/20 hover:bg-white/10 flex flex-col justify-center items-center ${
-              planType === 'Paid' ? 'bg-genrix-purple/20' : 'bg-white/5'
-            }`}
-          >
-            {icon}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">
-          <div className="text-sm">{label}</div>
-          <Badge
-            variant={planType === 'Free' ? 'secondary' : 'default'}
-            className={`text-xs ${planType === 'Free' ? 'bg-white/20' : 'bg-genrix-purple'}`}
-          >
-            {planType} plan
-          </Badge>
-        </TooltipContent>
-      </Tooltip>
-      <div className="text-xs mt-2 text-white/60">{label}</div>
-    </div>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          onClick={onClick}
+          variant="ghost"
+          size="sm"
+          className={`relative p-2 rounded-md ${
+            planType === 'Paid' ? 'text-genrix-purple hover:bg-genrix-purple/10' : 'text-white/80 hover:bg-white/10'
+          }`}
+        >
+          {icon}
+          {planType === 'Paid' && (
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-genrix-purple rounded-full animate-pulse"></span>
+          )}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="bottom" className="flex flex-col items-center">
+        <div className="text-xs font-medium">{label}</div>
+        <Badge
+          variant={planType === 'Free' ? 'secondary' : 'default'}
+          className={`text-[10px] mt-1 px-1.5 py-0 h-4 ${planType === 'Free' ? 'bg-white/20' : 'bg-genrix-purple'}`}
+        >
+          {planType} plan
+        </Badge>
+      </TooltipContent>
+    </Tooltip>
   );
 };
 
@@ -61,27 +61,27 @@ const PreviewActions = () => {
   };
 
   return (
-    <div className="flex justify-center gap-5 p-4 border-b border-white/10">
+    <div className="flex items-center gap-2 p-2 border-b border-white/10 bg-black/10">
       <ActionButton
-        icon={<Chrome size={24} className="text-white" />}
+        icon={<Chrome size={18} />}
         label="Browser Preview"
         planType="Free"
         onClick={() => handleAction('Browser Preview', false)}
       />
       <ActionButton
-        icon={<Database size={24} className="text-white" />}
+        icon={<Database size={18} />}
         label="Supabase"
         planType="Paid"
         onClick={() => handleAction('Supabase Connect', true)}
       />
       <ActionButton
-        icon={<Github size={24} className="text-white" />}
+        icon={<Github size={18} />}
         label="Github"
         planType="Paid"
         onClick={() => handleAction('Github Push', true)}
       />
       <ActionButton
-        icon={<Download size={24} className="text-white" />}
+        icon={<Download size={18} />}
         label="Download"
         planType="Paid"
         onClick={() => handleAction('Download Project', true)}

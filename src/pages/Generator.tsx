@@ -126,9 +126,14 @@ const Generator = () => {
       <div className="flex-1 container mx-auto flex flex-col md:flex-row gap-4 p-4">
         {/* Chat panel */}
         <div className="flex-1 md:w-1/2 bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 flex flex-col h-[calc(100vh-7rem)]">
-          <div className="p-4 border-b border-white/10">
-            <h2 className="text-xl font-semibold text-white">Chat with Genrix</h2>
-            <p className="text-sm text-white/60">Ask follow-up questions or request changes</p>
+          <div className="p-3 border-b border-white/10 flex flex-col gap-2">
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-semibold text-white">Chat with Genrix</h2>
+                <p className="text-xs text-white/60">Ask follow-up questions or request changes</p>
+              </div>
+            </div>
+            <PromptUsage used={1} total={3} />
           </div>
           
           <div className="flex-1 overflow-auto p-4" ref={chatContainerRef}>
@@ -152,10 +157,6 @@ const Generator = () => {
                 </div>
               </div>
             )}
-          </div>
-          
-          <div className="p-4 border-t border-white/10 bg-black/10">
-            <PromptUsage used={1} total={3} />
           </div>
           
           <ChatInput onSendMessage={handleSendMessage} isLoading={isGenerating} />
