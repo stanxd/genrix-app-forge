@@ -1,10 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Send } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
   const [typedText, setTypedText] = useState('');
+  const [prompt, setPrompt] = useState('');
+  const navigate = useNavigate();
   const fullText = 'Build a Next.js blog with authentication and comments';
   
   useEffect(() => {
@@ -33,6 +37,12 @@ const Hero = () => {
     
     return () => clearInterval(typingInterval);
   }, []);
+  
+  const handleGenerate = () => {
+    if (prompt.trim()) {
+      navigate(`/generate?prompt=${encodeURIComponent(prompt)}`);
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center pt-16">
@@ -58,6 +68,32 @@ const Hero = () => {
             <p className="text-lg md:text-xl text-white/70 max-w-lg">
               Genrix is an AI-powered platform that converts text descriptions into full-stack Next.js web applications in seconds.
             </p>
+            
+            <div className="mt-8 w-full">
+              <div className="flex flex-col md:flex-row gap-3">
+                <div className="relative flex-grow">
+                  <Input
+                    type="text"
+                    className="w-full bg-white/5 border-white/20 focus:border-genrix-purple/50 text-white py-6 pl-4 pr-10 rounded-lg"
+                    placeholder="Describe your app idea..."
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+                  />
+                </div>
+                <Button 
+                  onClick={handleGenerate}
+                  className="bg-genrix-purple hover:bg-genrix-purple/90 text-white py-6 px-8"
+                  size="lg"
+                >
+                  Generate
+                  <Send size={16} className="ml-2" />
+                </Button>
+              </div>
+              <p className="text-xs text-white/40 mt-2">
+                Try: "Create an e-commerce site with product listings and checkout"
+              </p>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button size="lg" className="bg-genrix-purple hover:bg-genrix-purple/90 text-white px-8">
