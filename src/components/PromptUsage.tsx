@@ -26,8 +26,10 @@ const PromptUsage: React.FC<PromptUsageProps> = ({ used, total, isPremium = fals
             <span>{used} used</span>
             <span>{total} total</span>
           </div>
-          <Progress value={percentUsed} className="h-2 bg-white/10" 
-            indicatorClassName={isPremium ? "bg-genrix-purple" : "bg-white/50"} />
+          <Progress 
+            value={percentUsed} 
+            className={`h-2 bg-white/10 ${isPremium ? "[&>div]:bg-genrix-purple" : "[&>div]:bg-white/50"}`} 
+          />
           <div className="text-xs text-white/60 pt-1">
             {isPremium 
               ? 'You have premium access (100 prompts / 30 days)' 

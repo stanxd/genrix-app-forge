@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Browser, Database, Github, Download } from 'lucide-react';
+import { Chrome, Database, Github, Download } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 
@@ -63,7 +63,7 @@ const PreviewActions = () => {
   return (
     <div className="flex justify-center gap-5 p-4 border-b border-white/10">
       <ActionButton
-        icon={<Browser size={24} className="text-white" />}
+        icon={<Chrome size={24} className="text-white" />}
         label="Browser Preview"
         planType="Free"
         onClick={() => handleAction('Browser Preview', false)}
