@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				genrix: {
+					purple: '#9b87f5',
+					'dark-purple': '#1A1F2C',
+					'light-purple': '#E5DEFF',
+					'vivid-purple': '#8B5CF6',
+					blue: '#0EA5E9',
+					accent: '#D946EF',
 				}
 			},
 			borderRadius: {
@@ -84,12 +93,45 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'pulse-slow': {
+					'0%, 100%': {
+						opacity: 1,
+					},
+					'50%': {
+						opacity: 0.5,
+					},
+				},
+				'gradient-animation': {
+					'0%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+					'100%': { backgroundPosition: '0% 50%' },
+				},
+				typing: {
+					'0%': {
+						width: '0%',
+					},
+					'100%': {
+						width: '100%',
+					},
+				},
+				blink: {
+					'50%': {
+						borderColor: 'transparent',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+				'gradient-animation': 'gradient-animation 10s ease infinite',
+				'typing': 'typing 3.5s steps(40, end), blink 1s step-end infinite',
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'hero-pattern': 'url("/placeholder.svg")',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
