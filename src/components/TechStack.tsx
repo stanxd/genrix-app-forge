@@ -4,10 +4,10 @@ import React from 'react';
 const TechStack = () => {
   const technologies = [
     {
-      name: "Next.js",
-      description: "React framework for production",
-      icon: "N",
-      color: "bg-black text-white"
+      name: "React",
+      description: "Frontend library for building user interfaces",
+      icon: "R",
+      color: "bg-blue-500 text-white"
     },
     {
       name: "Supabase",
@@ -53,7 +53,7 @@ const TechStack = () => {
             Built with <span className="bg-clip-text text-transparent bg-gradient-to-r from-genrix-purple to-genrix-accent">Modern Technologies</span>
           </h2>
           <p className="text-lg text-white/70">
-            Genrix generates applications using the latest technologies and best practices in web development.
+            Genrix generates applications using the latest Full-stack technologies and best practices in web development.
           </p>
         </div>
         

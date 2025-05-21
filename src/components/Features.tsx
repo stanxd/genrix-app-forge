@@ -12,7 +12,7 @@ const Features = () => {
     {
       icon: <Code className="h-6 w-6 text-genrix-purple" />,
       title: "Clean Code Generation",
-      description: "Generate production-ready Next.js code with TypeScript support and best practices"
+      description: "Generate production-ready Full-stack code with TypeScript support and best practices"
     },
     {
       icon: <Clock className="h-6 w-6 text-genrix-purple" />,
@@ -49,7 +49,7 @@ const Features = () => {
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-genrix-purple to-genrix-accent"> Modern Web Apps</span>
           </h2>
           <p className="text-lg text-white/70">
-            Genrix comes packed with everything you need to build, deploy, and scale your Next.js applications without writing a single line of code.
+            Genrix comes packed with everything you need to build, deploy, and scale your Full-stack applications without writing a single line of code.
           </p>
         </div>
         
