@@ -1,11 +1,14 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Copy, Download } from 'lucide-react';
 import ChatMessage from '@/components/ChatMessage';
 import ChatInput from '@/components/ChatInput';
 import { Link } from 'react-router-dom';
+import PreviewActions from '@/components/PreviewActions';
+import PromptUsage from '@/components/PromptUsage';
+import { toast } from 'sonner';
 
 type Message = {
   id: string;
@@ -19,6 +22,7 @@ const Generator = () => {
   const initialPrompt = searchParams.get('prompt') || '';
   const [messages, setMessages] = useState<Message[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     if (initialPrompt) {
@@ -35,6 +39,13 @@ const Generator = () => {
       handleAIResponse(initialPrompt);
     }
   }, [initialPrompt]);
+  
+  useEffect(() => {
+    // Scroll to bottom whenever messages change
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
   
   const handleSendMessage = (content: string) => {
     const newMessage: Message = {
@@ -78,6 +89,10 @@ const Generator = () => {
     return responses[Math.floor(Math.random() * responses.length)];
   };
 
+  const handleCopyCode = () => {
+    toast.success('Code copied to clipboard');
+  };
+
   return (
     <div className="min-h-screen w-full bg-genrix-dark-purple flex flex-col">
       {/* Header */}
@@ -88,10 +103,20 @@ const Generator = () => {
             Back to Home
           </Link>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="border-white/20 hover:bg-white/10"
+              onClick={handleCopyCode}
+            >
               <Copy size={14} className="mr-1" /> Copy Code
             </Button>
-            <Button variant="outline" size="sm" className="border-white/20 hover:bg-white/10">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="border-white/20 hover:bg-white/10"
+              onClick={() => toast.info('This feature requires a paid plan')}
+            >
               <Download size={14} className="mr-1" /> Download
             </Button>
           </div>
@@ -107,7 +132,7 @@ const Generator = () => {
             <p className="text-sm text-white/60">Ask follow-up questions or request changes</p>
           </div>
           
-          <div className="flex-1 overflow-auto p-4">
+          <div className="flex-1 overflow-auto p-4" ref={chatContainerRef}>
             {messages.map(message => (
               <ChatMessage 
                 key={message.id}
@@ -130,11 +155,17 @@ const Generator = () => {
             )}
           </div>
           
+          <div className="p-4 border-t border-white/10 bg-black/10">
+            <PromptUsage used={1} total={3} />
+          </div>
+          
           <ChatInput onSendMessage={handleSendMessage} isLoading={isGenerating} />
         </div>
         
         {/* Preview panel */}
         <div className="flex-1 md:w-1/2 bg-black/20 backdrop-blur-sm rounded-lg border border-white/10 flex flex-col h-[calc(100vh-7rem)]">
+          <PreviewActions />
+          
           <div className="p-4 border-b border-white/10">
             <h2 className="text-xl font-semibold text-white">App Preview</h2>
             <p className="text-sm text-white/60">Live preview of your generated application</p>
